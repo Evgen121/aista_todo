@@ -1,0 +1,105 @@
+<form>
+  <h1 mat-dialog-title>{{(data.isEdit ? 'Edit' : 'Create') | translate}} {{'My_todo' | translate}}</h1>
+  <div mat-dialog-content>
+
+      <mat-form-field
+      *ngIf="canEditColumn('todo_id')"
+      class="entity-edit-field"
+      appearance="outline">
+      <mat-label>{{'todo_id' | translate}}</mat-label>
+      <input
+        matInput
+        type="number"
+        step="1"
+        name="todo_id"
+        (change)="changed('todo_id')"
+        [(ngModel)]="data.entity['todo_id']"
+        autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="canEditColumn('statu_id')"
+      class="entity-edit-field"
+      appearance="outline">
+      <mat-label>{{'statu_id' | translate}}</mat-label>
+      <input
+        matInput
+        type="number"
+        step="1"
+        name="statu_id"
+        (change)="changed('statu_id')"
+        [(ngModel)]="data.entity['statu_id']"
+        autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="canEditColumn('title')"
+      class="entity-edit-field"
+      appearance="outline">
+      <mat-label>{{'title' | translate}}</mat-label>
+      <input
+        matInput
+        type="text"
+        name="title"
+        (change)="changed('title')"
+        [(ngModel)]="data.entity['title']"
+        autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="canEditColumn('description')"
+      class="entity-edit-field"
+      appearance="outline">
+      <mat-label>{{'description' | translate}}</mat-label>
+      <input
+        matInput
+        type="text"
+        name="description"
+        (change)="changed('description')"
+        [(ngModel)]="data.entity['description']"
+        autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field
+      *ngIf="canEditColumn('due_data')"
+      class="entity-edit-field"
+      appearance="outline">
+      <mat-label>{{'due_data' | translate}}</mat-label>
+      <input
+        matInput
+        name="due_data"
+        (change)="changed('due_data')"
+        [owlDateTime]="pickerdue_data"
+        [(ngModel)]="data.entity['due_data']"
+        autocomplete="off">
+      <owl-date-time
+        #pickerdue_data
+        (afterPickerClosed)="changed('due_data')"></owl-date-time>
+      <mat-icon
+        [owlDateTimeTrigger]="pickerdue_data"
+        matSuffix
+        role="button"
+        class="button-icon"
+        matDatepickerToggleIcon>calendar_today</mat-icon>
+    </mat-form-field>
+
+</div>
+
+  <div mat-dialog-actions>
+
+    <div class="right-aligned">
+
+      <button 
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="upsert()">{{'Save' | translate}}</button>
+
+      <button
+        mat-button
+        (click)="close(null)">{{'Cancel' | translate}}</button>
+
+    </div>
+
+  </div>
+</form>
